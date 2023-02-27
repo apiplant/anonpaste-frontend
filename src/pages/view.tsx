@@ -34,8 +34,8 @@ export default function View() {
 
 	createEffect(async () => {
 		if (!paste()?.content) return;
-		const key = location.hash.slice(1);
-		setIsRaw(location.hash.indexOf("|") === -1);
+		const key = decodeURIComponent(location.hash.slice(1));
+		setIsRaw(key.indexOf("|") === -1);
 		if (isRaw()) {
 			const result = await decrypt(paste()?.content, key);
 			const [language, ...content] = result.split(":");
@@ -50,7 +50,7 @@ export default function View() {
 			if (passwordErrorMessage()) {
 				return;
 			}
-			const key = location.hash.slice(1);
+			const key = decodeURIComponent(location.hash.slice(1));
 			const result = await decrypt(paste().content, key, password());
 			const [language, ...content] = result.split(":");
 			setContent(content.join(":"));
