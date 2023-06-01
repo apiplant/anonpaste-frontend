@@ -1,17 +1,17 @@
 import { BACKEND_ORIGIN } from "../config";
 
 export type PasteDoc = {
+	premium: boolean;
 	content: string;
 	id: string;
-	expiryTime: number;
-	expiryViews: number;
+	expiryTime: number | null;
+	expiryViews: number | null;
 };
 
 export type ReportBody = {
-	content: string;
-	id: string;
-	expiryTime: number;
-	expiryViews: number;
+	links: string[];
+	email: string;
+	message: string;
 };
 
 export const create = (body: PasteDoc) =>
