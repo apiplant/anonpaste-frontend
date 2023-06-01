@@ -104,10 +104,11 @@ export default function Create() {
 			password(),
 		);
 		try {
+			const expiryTimeValue = expiryTimeMap[expiryTime()]();
 			const res = await Paste.create({
 				id,
 				content,
-				expiryTime: Math.round(expiryTimeMap[expiryTime()]() / 1000),
+				expiryTime: expiryTimeValue && Math.round(expiryTimeValue),
 				expiryViews: expiryViewsMap[expiryViews()](),
 			});
 			setSavingStatus(res.ok ? STATUS_SUCCESS : STATUS_FAILED);
